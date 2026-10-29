@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ollama Cheat Sheet (Printable) | Asdale Dynamics, LLC</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --muted: #555;
+    --brand: #0b6b4c;
+    --line: #e2e2e2;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background: #fafafa;
+    font-size: 9.5pt;
+    line-height: 1.5;
+  }
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1.4rem 1.6rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+  }
+  .kicker {
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin: 0 0 0.25rem;
+    font-weight: 700;
+  }
+  h1 {
+    font-size: 1.7rem;
+    margin: 0 0 0.5rem;
+    color: var(--ink);
+  }
+  h1 .small {
+    font-weight: 400;
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+  h2 {
+    font-size: 1.15rem;
+    margin: 1.2rem 0 0.5rem;
+    color: var(--brand);
+    border-bottom: 1.5px solid #eef7f2;
+    padding-bottom: 0.25rem;
+  }
+  h3 { font-size: 0.95rem; margin: 0.9rem 0 0.35rem; color: var(--ink); }
+  p { margin: 0 0 0.75rem; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    background: #f2f2f2;
+    padding: 0.12rem 0.35rem;
+    border-radius: 3px;
+    font-size: 0.9em;
+  }
+  pre {
+    background: #f2f2f2;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    margin: 0.6rem 0;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.45;
+  }
+  pre code { background: transparent; padding: 0; font-size: inherit; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.6rem 0 0.9rem;
+    font-size: 0.88rem;
+  }
+  th, td {
+    border: 1px solid var(--line);
+    padding: 0.45rem 0.6rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: #eef7f2; color: #08523a; font-size: 0.85rem; }
+  ul, ol { margin: 0.4rem 0 0.75rem 1.4rem; }
+  li { margin-bottom: 0.3rem; }
+  .tip {
+    background: #eef7f2;
+    border-left: 4px solid var(--brand);
+    padding: 0.6rem 0.9rem;
+    margin: 0.8rem 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.9rem;
+  }
+  .alert {
+    background: #fdf2f2;
+    border-left: 4px solid #c0392b;
+    padding: 0.6rem 0.9rem;
+    margin: 0.8rem 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.9rem;
+  }
+  .footer {
+    margin-top: 1.4rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  a { color: var(--brand); text-decoration: underline; }
+  .no-print { display: block; }
+  @media print {
+    body { background: #ffffff; font-size: 9pt; }
+    .page { border: none; box-shadow: none; width: 100%; max-width: none; padding: 1.6cm 1.8cm; }
+    .no-print { display: none !important; }
+    a { color: var(--ink); text-decoration: none; }
+    pre, table, .tip, .alert { page-break-inside: avoid; }
+    h2, h3 { page-break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+<p class="kicker">Asdale Dynamics, LLC &bull; Local AI for beginners</p>
+<h1>Ollama Cheat Sheet <span class="small">&mdash; print one page</span></h1>
+<p><strong>Run AI models locally on your own computer. No account. No paid tier. Nothing leaves your machine.</strong></p>
+
+<h2>Install Ollama</h2>
+<p><strong>Mac / Linux:</strong></p>
+<pre><code>curl -fsSL https://ollama.com/install.sh | sh</code></pre>
+<p><strong>Windows:</strong> download the installer from <a href="https://ollama.com">ollama.com</a></p>
+<p><strong>Check it worked:</strong></p>
+<pre><code>ollama --version</code></pre>
+
+<h2>Your first model</h2>
+<pre><code>ollama run llama3.2:3b</code></pre>
+<p>At the <code>&gt; &gt; &gt;</code> prompt, type a message and press Enter.</p>
+<p><strong>Exit the chat:</strong> type <code>/bye</code>, or press <code>Ctrl+D</code>.</p>
+
+<h2>Common models</h2>
+<table>
+  <tr><th>Model</th><th>Size</th><th>RAM needed</th><th>Good for</th></tr>
+  <tr><td><code>llama3.2:1b</code></td><td>~1 GB</td><td>4&ndash;8 GB</td><td>Old/slow computers</td></tr>
+  <tr><td><code>llama3.2:3b</code></td><td>~2 GB</td><td>8 GB</td><td>Everyday chatting</td></tr>
+  <tr><td><code>llama3.1:8b</code></td><td>~4.7 GB</td><td>8&ndash;16 GB</td><td>Smarter answers</td></tr>
+  <tr><td><code>nomic-embed-text</code></td><td>~274 MB</td><td>4 GB</td><td>Text embeddings (advanced)</td></tr>
+</table>
+<p><strong>Download only:</strong> <code>ollama pull llama3.2:3b</code></p>
+
+<h2>Manage models</h2>
+<table>
+  <tr><th>Command</th><th>What it does</th></tr>
+  <tr><td><code>ollama list</code></td><td>Show downloaded models</td></tr>
+  <tr><td><code>ollama pull &lt;model&gt;</code></td><td>Download a model</td></tr>
+  <tr><td><code>ollama run &lt;model&gt;</code></td><td>Download + start a chat</td></tr>
+  <tr><td><code>ollama rm &lt;model&gt;</code></td><td>Delete a model</td></tr>
+  <tr><td><code>ollama --help</code></td><td>Show all commands</td></tr>
+</table>
+
+<h2>Free offline frontends</h2>
+<ul>
+  <li><strong>Ollama terminal:</strong> <code>ollama run &lt;model&gt;</code> &mdash; works offline after download</li>
+  <li><strong>Enchanted:</strong> Mac/iPhone/iPad app connecting to local Ollama</li>
+  <li><strong>Msty:</strong> Windows/Mac/Linux desktop app for local models</li>
+  <li><strong>Open WebUI:</strong> web interface running on your computer (advanced)</li>
+</ul>
+<p class="tip"><strong>Note:</strong> Frontends need internet once to install. After that, Ollama runs offline.</p>
+
+<h2>Troubleshooting</h2>
+<table>
+  <tr><th>Problem</th><th>Fix</th></tr>
+  <tr><td><code>ollama: command not found</code></td><td>Restart your terminal</td></tr>
+  <tr><td>Slow chat</td><td>Choose a smaller model; close other apps</td></tr>
+  <tr><td>Out of memory</td><td>Pick a smaller model (try <code>llama3.2:1b</code>)</td></tr>
+  <tr><td>Frontend cannot connect</td><td>Run <code>ollama serve</code> in a terminal</td></tr>
+</table>
+
+<div class="footer">
+  Credit: Dylan Asdale, Asdale Dynamics, LLC (Indiana, formed October 2026).<br>
+  Copyright (c) 2026 Asdale Dynamics, LLC. MIT License. Educational information only &mdash; not medical advice.<br>
+  More guides: <a href="https://dylanasdale.github.io">dylanasdale.github.io</a>
+</div>
+
+<p class="no-print" style="margin-top:1.4rem; text-align:center;">
+  <a href="index.html">Back to site</a> &bull;
+  <a href="manual.html">Full manual</a> &bull;
+  <button onclick="window.print()" style="padding:0.5rem 1rem; background:#0b6b4c; color:#fff; border:none; border-radius:6px; cursor:pointer;">Print this sheet</button>
+</p>
+
+</div>
+
+</body>
+</html>

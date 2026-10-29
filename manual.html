@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ollama Beginner's Manual | Asdale Dynamics, LLC</title>
+<link rel="stylesheet" href="site.css">
+<style>
+  .manual h2 { border-bottom: 2px solid #eef7f2; padding-bottom: 0.4rem; }
+  .manual h3 { font-size: 1.15rem; color: var(--brand-dark); margin-top: 1.5rem; }
+  .manual p { margin: 0 0 1rem; }
+  .manual code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; background: #f2f2f2; padding: 0.15rem 0.35rem; border-radius: 4px; font-size: 0.9em; }
+  .manual pre { background: #f2f2f2; border: 1px solid var(--line); border-radius: 8px; padding: 1rem; overflow-x: auto; margin: 1rem 0; }
+  .manual pre code { background: transparent; padding: 0; font-size: 0.95rem; }
+  .manual table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+  .manual th, .manual td { border: 1px solid var(--line); padding: 0.6rem 0.8rem; text-align: left; font-size: 0.95rem; }
+  .manual th { background: #f4fdf7; color: var(--brand-dark); }
+  .manual .nav { margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); display: flex; gap: 1rem; flex-wrap: wrap; font-size: 0.95rem; }
+  .manual .nav a { color: var(--brand); text-decoration: none; }
+  .manual .nav a:hover { text-decoration: underline; }
+  .manual .tip { background: #eef7f2; border-left: 4px solid var(--brand); padding: 0.8rem 1rem; margin: 1rem 0; border-radius: 0 8px 8px 0; font-size: 0.95rem; }
+  .manual .tip p:last-child { margin-bottom: 0; }
+  .manual .alert { background: #fdf2f2; border-left: 4px solid #c0392b; padding: 0.8rem 1rem; margin: 1rem 0; border-radius: 0 8px 8px 0; font-size: 0.95rem; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrapper">
+    <p class="kicker">Asdale Dynamics, LLC &bull; Beginner-friendly AI education</p>
+    <h1>Local AI with Ollama</h1>
+    <p class="subtitle">Beginner&rsquo;s manual &mdash; install, pick models, run your first chat, use free offline frontends.</p>
+  </div>
+</header>
+
+<main class="wrapper manual">
+  <nav class="nav">
+    <a href="index.html">&larr; Home</a>
+    <a href="cheat-sheet.html">Printable cheat sheet &rarr;</a>
+    <a href="docs/ollama-getting-started.md">Markdown source</a>
+  </nav>
+
+  <article>
+    <header class="card">
+      <h1>Local AI with Ollama: A Beginner&rsquo;s Manual</h1>
+      <p class="small" style="margin-top:0.35rem">Asdale Dynamics, LLC &mdash; beginner-friendly AI education, plain English, step by step.</p>
+      <p><strong>No account. No paid tier. Everything runs on your own computer.</strong></p>
+    </header>
+
+    <section class="card">
+      <h2>1. What is Ollama?</h2>
+      <p>Ollama is a free, open-source app that lets you run large language models (LLMs)
+      &mdash; the kind of AI behind chatbots &mdash; directly on your own computer instead
+      of on someone else&rsquo;s server.</p>
+      <p>Why that matters:</p>
+      <ul>
+        <li><strong>Privacy.</strong> Your chats and files stay on your machine. Nothing is
+        uploaded to Asdale Dynamics, LLC or any other company.</li>
+        <li><strong>Offline.</strong> After you download a model once, you can chat with it
+        with no internet connection.</li>
+        <li><strong>Free.</strong> No sign-up, no credit card, no monthly subscription.</li>
+        <li><strong>You choose the model.</strong> Small models for older laptops, bigger
+        models for powerful desktops.</li>
+      </ul>
+      <p>This manual walks you through installing Ollama, picking a model, running your first
+      chat, and using free frontends that work offline. It assumes no programming experience.</p>
+    </section>
+
+    <section class="card">
+      <h2>2. What you need</h2>
+      <table>
+        <tr><th>Item</th><th>Requirement</th></tr>
+        <tr><td>Computer</td><td>Mac, Linux, or PC (Windows 10/11)</td></tr>
+        <tr><td>Memory (RAM)</td><td>8 GB minimum; 16 GB+ recommended</td></tr>
+        <tr><td>Disk space</td><td>At least 5&ndash;10 GB free per model</td></tr>
+        <tr><td>Internet</td><td>Needed only to install Ollama and download models</td></tr>
+        <tr><td>Account</td><td>None required</td></tr>
+      </table>
+
+      <h3>How much RAM does a model need?</h3>
+      <p>As a rough guide, a model needs about 1 GB of RAM per billion parameters (written as
+      "1B", "7B", "32B", etc.), plus a little extra for your system:</p>
+      <table>
+        <tr><th>Model size</th><th>RAM guidance</th></tr>
+        <tr><td>1B&ndash;3B models</td><td>Run well on 8 GB RAM machines</td></tr>
+        <tr><td>7B&ndash;8B models</td><td>The sweet spot for beginners; 8&ndash;16 GB RAM</td></tr>
+        <tr><td>14B&ndash;32B models</td><td>Want 16&ndash;32 GB RAM</td></tr>
+        <tr><td>70B+ models</td><td>Typically need a strong graphics card and 48 GB+ RAM</td></tr>
+      </table>
+      <div class="tip"><p>You can always delete a model and try a smaller one if your computer feels slow.</p></div>
+    </section>
+
+    <section class="card">
+      <h2>3. Install Ollama</h2>
+
+      <h3>macOS</h3>
+      <ol>
+        <li>Go to <a href="https://ollama.com">ollama.com</a> and download Ollama for Mac,
+        or open Terminal and run:</li>
+      </ol>
+      <pre><code>curl -fsSL https://ollama.com/install.sh | sh</code></pre>
+      <ol start="2">
+        <li>Drag Ollama into your Applications folder if you downloaded the app.</li>
+        <li>Open Ollama. It places an icon in your menu bar.</li>
+        <li>In Terminal, check that it works:</li>
+      </ol>
+      <pre><code>ollama --version</code></pre>
+      <p>You should see something like <code>ollama version is 0.6.x</code>.</p>
+
+      <h3>Linux</h3>
+      <ol>
+        <li>Open a terminal and run the official install script:</li>
+      </ol>
+      <pre><code>curl -fsSL https://ollama.com/install.sh | sh</code></pre>
+      <ol start="2">
+        <li>The script installs Ollama and starts a background service.</li>
+        <li>Check the version:</li>
+      </ol>
+      <pre><code>ollama --version</code></pre>
+      <p>If the command is not found, log out and back in, or run <code>source ~/.profile</code>.</p>
+
+      <h3>Windows</h3>
+      <ol>
+        <li>Go to <a href="https://ollama.com">ollama.com</a> and download Ollama for Windows.</li>
+        <li>Run the installer and follow the prompts.</li>
+        <li>Open PowerShell or Command Prompt and check:</li>
+      </ol>
+      <pre><code>ollama --version</code></pre>
+    </section>
+
+    <section class="card">
+      <h2>4. Verify the installation</h2>
+      <pre><code>ollama --version</code></pre>
+      <p>If you see a version number, Ollama is installed and ready.</p>
+    </section>
+
+    <section class="card">
+      <h2>5. Pick your first model</h2>
+      <p>Models are the AI "brains" you chat with. Browse available models at
+      <a href="https://ollama.com/library">ollama.com/library</a>.</p>
+      <p>Good beginner models:</p>
+      <table>
+        <tr><th>Model</th><th>Size</th><th>Best for</th></tr>
+        <tr><td><code>llama3.2:1b</code></td><td>~1 GB</td><td>Very old or slow computers</td></tr>
+        <tr><td><code>llama3.2:3b</code></td><td>~2 GB</td><td>Fast, everyday chats on most laptops</td></tr>
+        <tr><td><code>llama3.1:8b</code></td><td>~4.7 GB</td><td>Smarter answers; needs 8&ndash;16 GB RAM</td></tr>
+        <tr><td><code>nomic-embed-text</code></td><td>~274 MB</td><td>Turning text into numbers (advanced)</td></tr>
+      </table>
+      <p>To download and run a model in one step:</p>
+      <pre><code>ollama run llama3.2:3b</code></pre>
+      <p>Ollama downloads the model (this may take a few minutes) and opens a chat prompt
+      that looks like:</p>
+      <pre><code>&gt; &gt; &gt; </code></pre>
+      <p>Type your message and press Enter. Type <code>/bye</code> to exit, or press
+      <code>Ctrl+D</code>.</p>
+    </section>
+
+    <section class="card">
+      <h2>6. Run your first chat</h2>
+      <ol>
+        <li>Open your terminal (macOS/Linux) or PowerShell (Windows).</li>
+        <li>Start a model:</li>
+      </ol>
+      <pre><code>ollama run llama3.2:3b</code></pre>
+      <ol start="3">
+        <li>At the <code>&gt; &gt; &gt;</code> prompt, type something like:</li>
+      </ol>
+      <pre><code>Hello! Can you explain what AI is, like I'm new to this?</code></pre>
+      <ol start="4">
+        <li>Press Enter and read the reply.</li>
+        <li>Try another:</li>
+      </ol>
+      <pre><code>Write a three-sentence bedtime story about a robot nurse.</code></pre>
+      <ol start="6">
+        <li>When you are done, type <code>/bye</code> or press <code>Ctrl+D</code>.</li>
+      </ol>
+      <div class="tip"><p>That&rsquo;s it &mdash; you just ran AI locally on your own computer.</p></div>
+    </section>
+
+    <section class="card">
+      <h2>7. Manage your models</h2>
+      <table>
+        <tr><th>What you want</th><th>Command</th></tr>
+        <tr><td>See downloaded models</td><td><code>ollama list</code></td></tr>
+        <tr><td>Download a model</td><td><code>ollama pull llama3.2:3b</code></td></tr>
+        <tr><td>Run a model</td><td><code>ollama run llama3.2:3b</code></td></tr>
+        <tr><td>Delete a model</td><td><code>ollama rm llama3.2:3b</code></td></tr>
+        <tr><td>See all commands</td><td><code>ollama --help</code></td></tr>
+      </table>
+      <p>Example session:</p>
+      <pre><code>ollama list
+ollama pull llama3.1:8b
+ollama run llama3.1:8b
+# ... chat ...
+# press Ctrl+D or type /bye
+ollama rm llama3.2:3b</code></pre>
+    </section>
+
+    <section class="card">
+      <h2>8. Free frontends that work offline</h2>
+      <p>Ollama&rsquo;s terminal chat is free and works offline, but many people prefer a
+      visual app with a chat window. Here are free frontends you can run locally:</p>
+      <table>
+        <tr><th>Frontend</th><th>Platform</th><th>Notes</th></tr>
+        <tr><td>Ollama terminal (<code>ollama run</code>)</td><td>Mac, Linux, Windows</td><td>Simplest offline option; works on every platform</td></tr>
+        <tr><td>Enchanted</td><td>macOS, iOS</td><td>Free, open-source chat app connecting to local Ollama; works offline once installed</td></tr>
+        <tr><td>Msty</td><td>Windows, macOS, Linux</td><td>Free desktop app with a polished chat interface; connects to Ollama on your machine</td></tr>
+        <tr><td>Open WebUI</td><td>Any (via Docker)</td><td>Feature-rich web interface for your local network; internet needed for initial setup, then runs locally</td></tr>
+      </table>
+      <div class="alert"><p><strong>Important:</strong> Any frontend you download needs internet the first time to install.
+      After that, Ollama plus your chosen model run entirely offline on your hardware.</p></div>
+    </section>
+
+    <section class="card">
+      <h2>9. Saving and sharing chats</h2>
+      <p>Ollama does not sync chats to the cloud &mdash; that is the privacy benefit. If you
+      want to keep a conversation:</p>
+      <ul>
+        <li>Copy and paste the chat into a text file on your computer.</li>
+        <li>Use a frontend such as Enchanted or Open WebUI, which stores chat history locally.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>10. Troubleshooting</h2>
+      <table>
+        <tr><th>Problem</th><th>Fix</th></tr>
+        <tr><td><code>ollama: command not found</code></td><td>Restart your terminal, or log out and back in after installation</td></tr>
+        <tr><td>Download is slow</td><td>Internet speed and model size determine download time; try a smaller model</td></tr>
+        <tr><td>Chat is very slow</td><td>Close other apps; choose a smaller model (e.g. <code>llama3.2:1b</code>)</td></tr>
+        <tr><td>Out of memory</td><td>Your RAM is full; pick a smaller model or restart your computer</td></tr>
+        <tr><td>Frontend cannot connect</td><td>Make sure Ollama is running (<code>ollama serve</code> in a terminal)</td></tr>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>11. Keep learning</h2>
+      <ul>
+        <li>Official docs: <a href="https://ollama.com">ollama.com</a></li>
+        <li>Model library: <a href="https://ollama.com/library">ollama.com/library</a></li>
+        <li>More beginner guides from Asdale Dynamics, LLC:
+        <a href="https://dylanasdale.github.io">dylanasdale.github.io</a></li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Printable cheat sheet</h2>
+      <p>A one-page command cheat sheet is available at
+      <a href="cheat-sheet.html">cheat-sheet.html</a> and in
+      <a href="docs/cheat-sheet.md">docs/cheat-sheet.md</a>. Print it and keep it by your
+      computer.</p>
+    </section>
+
+    <footer class="card" style="margin-top:1rem">
+      <p><strong>Credit:</strong> Written by Dylan Asdale for Asdale Dynamics, LLC
+      (Indiana, formed October 2026). Copyright (c) 2026 Asdale Dynamics, LLC. Licensed
+      under the <a href="LICENSE">MIT License</a>.</p>
+      <p class="small">This guide is educational information only and is not medical advice.</p>
+    </footer>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrapper">
+    <p>&copy; 2026 Asdale Dynamics, LLC. Local-first, beginner-friendly AI education.</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,133 @@
+/* Asdale Dynamics, LLC — Ollama beginner guide site styles */
+
+:root {
+  --ink: #1a1a1a;
+  --muted: #555;
+  --brand: #0b6b4c;
+  --brand-dark: #08523a;
+  --bg: #fafafa;
+  --card: #ffffff;
+  --line: #e2e2e2;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+* { box-sizing: border-box; }
+html { line-height: 1.6; }
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+.wrapper {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.site-header {
+  background: var(--brand);
+  color: #ffffff;
+  padding: 3rem 0 2rem;
+  text-align: center;
+}
+
+.site-header .kicker {
+  margin: 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #bfe6d3;
+}
+
+.site-header h1 {
+  margin: 0.5rem 0 0.5rem;
+  font-size: 2.2rem;
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+.site-header .subtitle {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #d8f3e4;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+main { padding: 2.5rem 0 3rem; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 1.35rem;
+  margin-bottom: 0.75rem;
+  color: var(--brand-dark);
+}
+
+.card p { margin: 0 0 1rem; }
+.card p.small { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; }
+
+ul.actions {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.button {
+  display: block;
+  padding: 0.75rem 1rem;
+  background: var(--brand);
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+  border: 2px solid var(--brand);
+}
+
+.button:hover { background: var(--brand-dark); }
+
+.button-outline {
+  background: transparent;
+  color: var(--brand);
+  border-color: var(--brand);
+}
+
+.button-outline:hover {
+  background: #eef7f2;
+  color: var(--brand-dark);
+}
+
+h2 + ol, h2 + ul { margin-top: 0.25rem; }
+ol, ul { margin: 0.5rem 0 1rem 1.5rem; }
+li { margin-bottom: 0.4rem; }
+
+.privacy { background: #f4fdf7; border-color: #c9e8d6; }
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 1.5rem 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 560px) {
+  .site-header h1 { font-size: 1.75rem; }
+  .card { padding: 1.25rem 1rem; }
+}
