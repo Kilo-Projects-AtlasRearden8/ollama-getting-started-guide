@@ -18,6 +18,7 @@ Files:
 - `manual.html` — full manual rendered as HTML
 - `cheat-sheet.html` — printable cheat sheet as HTML with `@media print` styles and a
   browser print button
+- `verify.sh` — runs all project verification checks (exits 0 when all pass)
 
 No account or paid tier is required anywhere in the guide. No `.github/workflows`
 files were added. No secrets, API keys, or personal data are in any file.
@@ -40,12 +41,16 @@ Markdown sources in `docs/` can be read in any text editor or Markdown viewer.
 
 ## Verification results
 
-- Python `html.parser` parse check: `index.html`, `manual.html`, `cheat-sheet.html` all parse without errors
-- Internal link check: all internal hrefs resolve to existing files (passed)
+Ran `./verify.sh` — all 10 checks passed:
+
+- Required files exist (passed)
 - `LICENSE` contains exact line `Copyright (c) 2026 Asdale Dynamics, LLC` (passed)
 - `README.md` credits Asdale Dynamics, LLC (passed)
-- Secret/API-key scan of all text files: clean (passed)
+- `index.html`, `manual.html`, `cheat-sheet.html` all parse without errors (passed)
+- Internal link check: all internal hrefs resolve to existing files (passed)
 - `.github/workflows`: absent (passed)
+- Secret/API-key scan of text files: clean (passed)
+- `cheat-sheet.html` has `@media print` styles (passed)
 
 Ollama itself was not installed in this environment, so the install commands in the
 guide were not executed end-to-end here; they follow the official `ollama.com`
@@ -59,7 +64,8 @@ installation instructions.
   their public documentation
 - HTML files were not rendered to PDF; print layout verified only via CSS `@media print`
   rules and visual structure
-- No test suite or CI configured (no `.github/workflows`, per instructions)
+- Verification is provided by `verify.sh` rather than a formal test framework or CI
+  (no `.github/workflows`, per instructions)
 
 ## Credit
 
